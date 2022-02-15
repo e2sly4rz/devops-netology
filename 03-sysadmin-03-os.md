@@ -23,6 +23,7 @@ vagrant@netology1:~$ file /bin/bash
 # Согласно приоритету сначала проверяются пользовательские каталоги на наличие пользовательского файла
 stat("/home/asamarskii/.magic.mgc", 0x7ffe42697210) = -1 ENOENT (No such file or directory)
 stat("/home/asamarskii/.magic", 0x7ffe42697210) = -1 ENOENT (No such file or directory)
+
 # Затем проверяются "стандартные" расположения на наличие файла
 openat(AT_FDCWD, "/etc/magic.mgc", O_RDONLY) = -1 ENOENT (No such file or directory)
 stat("/etc/magic", {st_mode=S_IFREG|0644, st_size=111, ...}) = 0
@@ -31,6 +32,7 @@ fstat(3, {st_mode=S_IFREG|0644, st_size=111, ...}) = 0
 read(3, "# Magic local data for file(1) c"..., 4096) = 111
 read(3, "", 4096)                       = 0
 close(3)                                = 0
+
 # Файл найден
 openat(AT_FDCWD, "/usr/share/misc/magic.mgc", O_RDONLY) = 3
 ```
@@ -42,29 +44,36 @@ openat(AT_FDCWD, "/usr/share/misc/magic.mgc", O_RDONLY) = 3
 ```bash
 # Создаем отдельный дескриптор с перенаправлением (для наглядности)
 e2sly4rz@ubuntu:~$ exec 5> /tmp/ping.md
+
 # Запускаем логирование ping в файл
 e2sly4rz@ubuntu:~$ ping 8.8.8.8 >&5
+
 # Ищем PID процесса
 e2sly4rz@ubuntu:~$ sudo lsof | grep ping.md
 bash      1048                       e2sly4rz    5w      REG              253,0     1081     539668 /tmp/ping.md
 ping      1187                       e2sly4rz    1w      REG              253,0     1081     539668 /tmp/ping.md
 ping      1187                       e2sly4rz    5w      REG              253,0     1081     539668 /tmp/ping.md
+
 # Видим, что файл постепенно растет в размере
 e2sly4rz@ubuntu:~$ sudo lsof | grep ping.md
 bash      1048                       e2sly4rz    5w      REG              253,0     1191     539668 /tmp/ping.md
 ping      1187                       e2sly4rz    1w      REG              253,0     1191     539668 /tmp/ping.md
 ping      1187                       e2sly4rz    5w      REG              253,0     1191     539668 /tmp/ping.md
+
 # Удаляем файл
 e2sly4rz@ubuntu:~$ rm /tmp/ping.md
 e2sly4rz@ubuntu:~$ sudo lsof | grep ping.md
 bash      1048                       e2sly4rz    5w      REG              253,0     1741     539668 /tmp/ping.md (deleted)
 ping      1187                       e2sly4rz    1w      REG              253,0     1741     539668 /tmp/ping.md (deleted)
 ping      1187                       e2sly4rz    5w      REG              253,0     1741     539668 /tmp/ping.md (deleted)
+
 # Останавливаем ping т.к. команда судя по всему постоянно переписывает файл в полном объеме, но у нас есть "копия"
 e2sly4rz@ubuntu:~$ sudo lsof | grep ping.md
 bash      1048                       e2sly4rz    5w      REG              253,0     2168     539668 /tmp/ping.md (deleted)
+
 # Обнуляем файл дескриптор
 e2sly4rz@ubuntu:~$ cat /dev/null > /proc/1048/fd/5
+
 # Проверяем результат
 e2sly4rz@ubuntu:~$ sudo lsof | grep ping.md
 bash      1048                       e2sly4rz    5w      REG              253,0        0     539668 /tmp/ping.md (deleted)
@@ -199,6 +208,7 @@ exit_group(0)                           = ?
 # Команды будут выполнены последовательно не зависимо от кода возврата.
 root@netology1:~$ test -d /tmp/some_dir; echo Hi
 Hi
+
 # Команды будут выполнены последовательно.
 # Выполнение следующей команды произойдет только при возврате успешного статуса предыдущей команды.
 root@netology1:~$ test -d /tmp/some_dir && echo Hi
