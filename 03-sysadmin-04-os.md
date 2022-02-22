@@ -118,8 +118,8 @@ NET:
 
 #### После успешной перезагрузки в браузере на своем ПК (не в виртуальной машине) вы должны суметь зайти на `localhost:19999`. Ознакомьтесь с метриками, которые по умолчанию собираются Netdata и с комментариями, которые даны к этим метрикам.
 
-![](images/./images/netdata01.jpg?raw=true)
-![](images/./images/netdata01.jpg?raw=true)
+![](https://github.com/e2sly4rz/devops-netology/blob/main/images/netdata01.jpg)
+![](https://github.com/e2sly4rz/devops-netology/blob/main/images/netdata02.jpg?raw=true)
 
 #### 4. Можно ли по выводу `dmesg` понять, осознает ли ОС, что загружена не на настоящем оборудовании, а на системе виртуализации?
 
