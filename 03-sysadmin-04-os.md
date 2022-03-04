@@ -31,12 +31,18 @@ Description=Node Exporter
 
 [Service]
 # Предусматриваем возможность добавления опций к запускаемому процессу через внешний файл
-# Сам файл также необходимо создать
 EnvironmentFile=/home/asamarskii/node_exporter-1.3.1.linux-amd64/default/node_exporter
-ExecStart=/home/asamarskii/node_exporter-1.3.1.linux-amd64/node_exporter
+# Прописываем путь к запускаемому процессу с переменной для опций
+ExecStart=/home/asamarskii/node_exporter-1.3.1.linux-amd64/node_exporter $MY_OPTS
 
 [Install]
 WantedBy=multi-user.target
+```
+Прописываем файл окружения `/home/asamarskii/node_exporter-1.3.1.linux-amd64/default/node_exporter` для добавления опций к запускаемому процессу
+
+```bash
+# Для примера прописываем формат вывода логов на json
+MY_OPTS="--log.format=json"
 ```
 
 Добавляем в автозагрузку:
