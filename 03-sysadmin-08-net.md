@@ -42,7 +42,7 @@ Paths: (23 available, best 22, table default)
 #### 2. Создайте dummy0 интерфейс в Ubuntu. Добавьте несколько статических маршрутов. Проверьте таблицу маршрутизации.
 
 ```bash
-# создаем конфиги для dimmy
+# создаем конфиги для dummy
 asamarskii@asm-ubnt:~$ sudo vim /etc/systemd/network/dummy0.netdev
 ```
 
