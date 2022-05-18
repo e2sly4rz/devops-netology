@@ -101,7 +101,7 @@ asm@netology:~$ sudo nginx -s reload
 
 ## Страница сервера nginx в браузере хоста не содержит предупреждений
 
-![](https://github.com/e2sly4rz/devops-netology/blob/main/images/kurs.jpeg)
+![](https://github.com/e2sly4rz/devops-netology/blob/main/images/kurs.jpg)
 
 ## Скрипт генерации нового сертификата работает (сертификат сервера ngnix должен быть "зеленым")
 
