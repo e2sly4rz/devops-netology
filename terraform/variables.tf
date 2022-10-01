@@ -9,3 +9,7 @@ variable "yandex_folder_id" {
 variable "ubnt_ver" {
   default = "fd8autg36kchufhej85b"
 }
+
+variable "iam_token" {
+  type = string
+}
